@@ -1,4 +1,5 @@
 import { useGetProducts } from "../../services/useGetProducts"
+import { ProductCard } from "./ProductCard";
 
 
 
@@ -22,9 +23,7 @@ if (isLoading) {
   }
 
 
-    return (<div>
-        {!products ? <p>Loading</p> : products.map(el => {
-            return <p>{el.brand}</p> 
-        })}
+    return (<div className="my-10 mx-10">
+        <ProductCard products={products}/>
     </div>)
 }
