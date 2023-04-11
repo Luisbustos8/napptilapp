@@ -1,3 +1,6 @@
+import {  useState } from "react";
+import { NotFoundResults } from "../../components/NoFound/NotFoundResults";
+import { SearchBar } from "../../components/searcher/SearchBar";
 import { useGetProducts } from "../../services/useGetProducts"
 import { ProductCard } from "./ProductCard";
 
@@ -6,24 +9,23 @@ import { ProductCard } from "./ProductCard";
 export const HomeProduct = () => {
 
 
-const { products, isLoading, error } = useGetProducts()
+const { products, isLoading } = useGetProducts()
+
+const [ searchMobile, setSearchMobile ] = useState('')
+
+const handleSearch = (search) => {
+  setSearchMobile(search)
+}
 
 
 if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
     return (
-      <div>
-        Error!
-        {error?.toString()}
-      </div>
-    );
-  }
-
-
-    return (<div className="my-10 mx-10">
-        <ProductCard products={products}/>
-    </div>)
+    <div class="my-10 mx-10">
+        <SearchBar onSearch={handleSearch} products={products}/>
+        <ProductCard products={products} mobile={searchMobile}/>
+    </div>
+    )
 }

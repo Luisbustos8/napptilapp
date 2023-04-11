@@ -1,14 +1,19 @@
+import { NotFoundResults } from "../../components/NoFound/NotFoundResults";
 
 
 
-export const ProductCard = (products) => {
+export const ProductCard = ({products, ...props}) => {
+    
+    const { mobile } = props
+    const filteredItems = products.filter(item => item.brand.toLowerCase().includes(mobile.toLowerCase()) || item.model.toLowerCase().includes(mobile.toLowerCase()));
 
     return (
+        <>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-            {products.products.map(product => {
+            {filteredItems.length > 0 ? filteredItems.map(product => {
                 return (
                     <div class="max-w-sm rounded overflow-hidden shadow-lg my-2 bg-white hover:bg-neutral-300" key={product.id}>
-                        <div className="flex justify-center">
+                        <div class="flex justify-center">
                             <img class="w-[100px] h-[150px] mt-2 bg-white  hover:bg-neutral-300" src={product.imgUrl} alt={product.imgUrl} />
                         </div>
                     <div class="px-6 py-4">
@@ -24,7 +29,8 @@ export const ProductCard = (products) => {
                         </div>
                     </div>
                 )
-            })}
+            }): <NotFoundResults />}
         </div>
+        </>
     )
 }
