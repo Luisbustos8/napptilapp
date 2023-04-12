@@ -16,7 +16,7 @@ export const DescriptionDetails = ({productDetail}) => {
             <h1 class="text-3xl font-bold py-4 text-center lg:text-left">Specifications of {productDetail.brand} {productDetail.model}</h1>
             <div class="overflow-x-auto">
                 <div class="bg-gray-100 flex">
-                    <p class="w-full px-2 py-2 border border-gray-300 font-bold">Characteristics</p>
+                    <p class="w-full px-2 py-2 border border-gray-300 font-bold text-center">Characteristics</p>
                 </div>
             <div className="flex border-b border-gray-300">
                 <div className="flex items-center px-2">

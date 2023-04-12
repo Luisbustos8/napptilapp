@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ButtonGroup = ({ options, onSelect, label, selected }) => {
+export const ButtonSelector = ({ options, onSelect, label, selected }) => {
   return (
     <>
     <label>Choose your favorite {label}</label>
@@ -19,4 +19,4 @@ export const ButtonGroup = ({ options, onSelect, label, selected }) => {
   );
 };
 
-export default ButtonGroup;
+export default ButtonSelector;
