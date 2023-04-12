@@ -1,5 +1,4 @@
 import {  useState } from "react";
-import { NotFoundResults } from "../../components/NoFound/NotFoundResults";
 import { SearchBar } from "../../components/searcher/SearchBar";
 import { useGetProducts } from "../../services/useGetProducts"
 import { ProductCard } from "./ProductCard";
@@ -16,6 +15,7 @@ const [ searchMobile, setSearchMobile ] = useState('')
 const handleSearch = (search) => {
   setSearchMobile(search)
 }
+
 
 
 if (isLoading) {
