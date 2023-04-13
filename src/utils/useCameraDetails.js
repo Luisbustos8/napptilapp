@@ -3,7 +3,10 @@
 import React from 'react';
 
 export const useCameraDetails = ( array) => {
+  
   return (
+    <>
+    {typeof array === array ? 
     <span>
       {array.map((item, index) => (
         <span key={index}>
@@ -11,6 +14,8 @@ export const useCameraDetails = ( array) => {
         </span>
       ))}
     </span>
+     : <span>{array}</span> }
+     </>
   );
 }
 

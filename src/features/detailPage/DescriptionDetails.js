@@ -10,6 +10,7 @@ import WEIGHT from '../../assets/icons/smartphone.png'
 
 
 export const DescriptionDetails = ({productDetail}) => {
+    console.log(productDetail.primaryCamera)
     
     return (
         <div class="container mx-auto px-4 lg:px-0">
