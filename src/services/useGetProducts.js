@@ -14,7 +14,6 @@ export const getProducts = async () => {
 
 export const fetchFromlocalStorage = () => {
     const dataWithExpiration = localStorage.getItem('products');
-    console.log(dataWithExpiration)
     if (dataWithExpiration) {
         const { data, expiration } = JSON.parse(dataWithExpiration)
         if (Date.now() < expiration) {

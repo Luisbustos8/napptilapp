@@ -1,23 +1,19 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import {  useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShoppingCartButton } from "../../components/Buttons/ShoppingCartButton";
 import  {ButtonSelector}  from "../../components/selectorTypeMobile/ButtonSelector";
-import { useAddToCart } from "../../services/useAddToCart";
-import { fetchIdFromLocalStorage, getProductById, useGetProductById, useGetProductDetail, useGetProductsIdWithCache } from "../../services/useGetProductDetail"
-import { useGetProductsWithCache } from "../../services/useGetProducts";
-import { useResponse } from "../../utils/useResponse";
+import { fetchIdFromLocalStorage, getProductById} from "../../services/useGetProductDetail"
 import { MobileDetailDescription } from "./MobileDetailDescription";
 import { MobileImageDetail } from "./MobileImageDetail";
-
 
 export const DetailPage = () => {
     const params = useParams()
     const navigate = useNavigate()
     const [selectedColor, SetSelectedColor] = useState("");
     const [ selectedStorage, setSelectedStorage] = useState("");
-
-    const { data, isLoading, errorId } = useQuery(('productsId', params.id), () => {
+    
+    const { data, isLoading } = useQuery(('productsId', params.id), () => {
         const localStorage = fetchIdFromLocalStorage(params.id);
         if (localStorage){
             return Promise.resolve(localStorage)
@@ -32,20 +28,10 @@ export const DetailPage = () => {
         setSelectedStorage(storage)
     }
 
-
-    const handleAddToCard =  () => {
-        // try {
-        //     mutate({
-        //         id: params.id,
-        //         colorCode: selectedColor,
-        //         storageCode: selectedStorage
-        //     })
-            
-        //     storeResponse('response')
-        // } catch (errorMsg) {
-        //     console.log(errorMsg)
-        // }
+    const handleAddToCard = () => {
+        
     }
+   
 
 
     if (isLoading) {
@@ -60,7 +46,7 @@ export const DetailPage = () => {
 
     return (
         <>
-        <button onClick={handleBack}>pulsame</button>
+        <button className="bg-cyan-500 hover:bg-cyan-800 flex text-white font-bold my-2 mx-4 rounded md:py-3 md:px-6 md:text-lg" onClick={handleBack}>Back</button>
         <div className="flex flex-wrap my-10 mx-10">
            
              <div className="w-full md:w-1/2 p-4">
