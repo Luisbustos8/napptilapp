@@ -1,8 +1,8 @@
 
 
-export const getProductById = async ( id) => {
+export const getProductById = async (id) => {
 
-    const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/product/${id}`)
+    const response = await fetch(`${process.env.REACT_APP_API_BASE}api/product/${id}`)
     const data = await response.json();
     const dataWithExpiration = {
         data, 

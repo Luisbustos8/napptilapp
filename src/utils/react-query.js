@@ -1,5 +1,3 @@
-
-
 import { DefaultOptions, QueryClient } from "react-query";
 
 export const queryConfig = {
@@ -10,4 +8,4 @@ export const queryConfig = {
   },
 };
 
-export const queryClient = new QueryClient({ defaultOptions: queryConfig });
+export const queryClient = new QueryClient({ DefaultOptions: queryConfig });

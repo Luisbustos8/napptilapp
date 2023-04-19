@@ -1,8 +1,13 @@
 
 export const getProducts = async () => {
-  
-    const response = await fetch(`${process.env.REACT_APP_API_BASE}/api/product`);
+    const response = await fetch(`${process.env.REACT_APP_API_BASE}api/product`)
     const data = await response.json()
+
+    if (!response.ok) {
+        console.log('error')
+        throw new Error(`Error!`)
+    }
+
     const dataWithExpiration = {
         data, 
         expiration: Date.now() + 1000 * 60 * 60,

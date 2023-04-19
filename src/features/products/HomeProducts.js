@@ -1,22 +1,21 @@
-import {  useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
+import { Loader } from "../../components/Loader/loader";
 import { SearchBar } from "../../components/searcher/SearchBar";
-import {  fetchFromlocalStorage, getProducts, useGetProduct } from "../../services/useGetProducts"
+import {  fetchFromlocalStorage, getProducts } from "../../services/useGetProducts"
 import { ProductCard } from "./ProductCard";
 
 
 
 export const HomeProduct = () => {
-
-  const [loading, setIsLoading ] = useState(true)
-
-
  
-    const { isLoading, error, data: products} = useQuery('products', () => {
-      const localStorage = fetchFromlocalStorage();
-      if (localStorage) {
-        return Promise.resolve(localStorage)
-      }
+  const { isLoading, error, data: products} = useQuery('products', () => {
+     
+  const localStorage = fetchFromlocalStorage();
+    if (localStorage) {
+      return Promise.resolve(localStorage)
+    }
       return getProducts()
     })
 
@@ -26,12 +25,15 @@ export const HomeProduct = () => {
       setSearchMobile(search)
     }
 
-   
-
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (error) {
+      return <p>Opps something wrong!</p>
     }
 
+    if (isLoading) {
+        return <Loader />
+    }
+    
+    
     return (
       <div class="my-10 mx-10">
           <SearchBar onSearch={handleSearch} products={products}/>

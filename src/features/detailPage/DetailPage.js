@@ -2,17 +2,20 @@ import { useState } from "react";
 import {  useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShoppingCartButton } from "../../components/Buttons/ShoppingCartButton";
+import { Loader } from "../../components/Loader/loader";
 import  {ButtonSelector}  from "../../components/selectorTypeMobile/ButtonSelector";
+import { useAddCart } from "../../services/useAddCart";
 import { fetchIdFromLocalStorage, getProductById} from "../../services/useGetProductDetail"
 import { MobileDetailDescription } from "./MobileDetailDescription";
 import { MobileImageDetail } from "./MobileImageDetail";
 
+
 export const DetailPage = () => {
     const params = useParams()
     const navigate = useNavigate()
+    const mutation = useAddCart()
     const [selectedColor, SetSelectedColor] = useState("");
     const [ selectedStorage, setSelectedStorage] = useState("");
-    
     const { data, isLoading } = useQuery(('productsId', params.id), () => {
         const localStorage = fetchIdFromLocalStorage(params.id);
         if (localStorage){
@@ -28,27 +31,20 @@ export const DetailPage = () => {
         setSelectedStorage(storage)
     }
 
-    const handleAddToCard = () => {
-        
-    }
-   
 
-
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (isLoading || mutation.isLoading) {
+        return <Loader />
     }
 
     const handleBack = () => {
         navigate(-1)
     }
     
-    
 
     return (
         <>
         <button className="bg-cyan-500 hover:bg-cyan-800 flex text-white font-bold my-2 mx-4 rounded md:py-3 md:px-6 md:text-lg" onClick={handleBack}>Back</button>
         <div className="flex flex-wrap my-10 mx-10">
-           
              <div className="w-full md:w-1/2 p-4">
                 <MobileImageDetail image={data.imgUrl} name={data.model} />
             </div>
@@ -59,7 +55,7 @@ export const DetailPage = () => {
                 <ButtonSelector options={data.options.colors} label={'color'} onSelect={handleSelectColor} selected={selectedColor} />
                 <ButtonSelector options={data.options.storages} label={'storage'} onSelect={handleSelectStorage} selected={selectedStorage} />
                 {!selectedColor || !selectedStorage ? <p className="mt-5 text-orange-400">Please choose a color and storage to add to cart</p> : null}
-                <ShoppingCartButton disabled={!selectedColor || !selectedStorage}  onClick={handleAddToCard} color={selectedColor} storage={selectedStorage}/>
+                <ShoppingCartButton disabled={!selectedColor || !selectedStorage}  onClick={mutation.mutate} color={selectedColor} storage={selectedStorage} id={data.id}/>
             </div>
         </div>
         </>
